@@ -1,0 +1,213 @@
+# |_|_  |  |     |___ ___|  _|_|___ 
+# | |_  |  |   --| . |   |  _| | . |
+# |_|___|  |_____|___|_|_|_| |_|_  | 
+#                              |___|
+
+# General Bindings 
+set $mod Mod4
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# -- Applets  -- #
+exec --no-startup-id nm-applet
+exec --no-startup-id volumeicon
+exec --no-startup-id parcellite
+
+# -- Aesthetics -- #
+exec --no-startup-id feh --randomize --bg-fill ~/Pictures/wg/* 
+exec --no-startup-id compton
+
+font pango: Comfortaa Bold 12
+
+new_window pixel 2
+gaps inner 2     #i3 gaps required
+gaps outer 2     # |
+smart_gaps on    # |
+smart_borders on #i3 gaps required
+
+set $color1 "#0067a5"
+set $color2 "#a50071"
+set $color3 "#E4DCEA"
+set $color4 "#555E5E"
+set $color5 "#121415"
+
+#<colorclass>           <border> <background> <text> <indicator> <child_border>
+client.focused          $color1    $color1  $color3  $color4     $color1
+client.focused_inactive $color2    $color5  $color3  $color5     $color2
+client.unfocused        $color4    $color5  $color4  $color5     $color3
+client.urgent           $color1    $color3  $color5  $color4     $color1
+
+bar {
+    status_command ~/Scripts/Misc/i3bar_fortune.sh
+	status_command i3status
+	mode hide
+	position bottom
+	tray_output primary
+	tray_padding 0
+	separator_symbol Ξ 
+colors {
+	background #E4DCEA
+	statusline #555E5E
+	separator  #121415
+	   
+	 #<status>          #<brdr>  #<body> #<text>
+	focused_workspace  #0067a5  #CFCFCF #121415 
+    active_workspace   #0067a5  #CFCFCF #121415 
+	inactive_workspace #555E5E  #E4DCEA #555E5E
+	urgent_workspace   #d17d17  #d17d17 #E4DCEA
+	}	
+}
+
+# -- System Mode -- #
+mode "Exit: [L]ogout [R]eboot [P]oweroff"{
+    bindsym $mod+r exec systemctl reboot
+    bindsym $mod+l exit
+    bindsym $mod+p exec systemctl poweroff
+    
+    # Cancel
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+mode "Music: Volume(+)(-) Playback <-[ (p) ]->"{
+    bindsym $mod+plus   exec amixer set Master 4%+ 
+    bindsym $mod+minus  exec amixer set Master 4%-
+    # This next part requires you to have sp installed
+    # https://gist.github.com/wandernauta/6800547
+    bindsym $mod+p                      exec sp play 
+    bindsym $mod+bracketleft            exec sp prev
+    bindsym $mod+bracketright           exec sp next
+    bindsym $mod+c                      exec urxvt -e cava
+    # Cancel
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+Delete mode "Exit: [L]ogout [R]eboot [P]oweroff" 
+bindsym XF86WLAN exec nmcli nm wifi off # turn off wifi
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# -- Software Hotkeys -- #
+bindsym $mod+Return exec urxvt -e tmux
+bindsym $mod+grave exec urxvt
+bindsym $mod+space exec dmenu_run
+bindsym $mod+F1	    exec nautilus
+bindsym $mod+F2	    exec firefox 
+
+bindsym $mod+F4     mode "Music: Volume(+)(-) Playback <-[ (p) ]->"
+
+# -- Screenshot Hotkeys -- #
+bindsym $mod+Print exec shutter --full -e
+bindsym $mod+Shift+print exec shutter --active -e 
+ 
+# -- Window Manager Hotkeys -- #
+# Split Orientation
+bindsym $mod+slash split h
+bindsym $mod+minus split v
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+x layout toggle split
+
+# Kill Window
+bindsym $mod+Shift+q kill
+
+# Focus Window
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+a focus parent
+bindsym $mod+d focus child
+
+# Shift Window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Floating Window
+bindsym $mod+Shift+space floating toggle
+floating_modifier $mod
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+mode "resize" {
+
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# -- Workspaces -- #
+
+set $wsn "News"
+set $wsm "Music"
+set $wsp "Presentation"
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+n workspace $wsn
+bindsym $mod+m workspace $wsm
+bindsym $mod+p workspace $wsp
+
+# move focused container to workspace
+bindsym $mod+Shift+n move container to workspace $wsn
+bindsym $mod+Shift+m move container to workspace $wsm
+bindsym $mod+Shift+p move container to workspace $wsp
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+
+# -- Workspace Specific Rules -- #
+workspace $wsh gaps outer 32
+workspace $wsh gaps inner 32
+
+workspace $wsm gaps outer 8
+workspace $wsm gaps inner 8
+
+workspace $wsp gaps outer 32
+workspace $wsp gaps inner 16
+

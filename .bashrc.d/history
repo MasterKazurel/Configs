@@ -1,0 +1,7 @@
+# Load size (HISTSIZE) History file size (HISTFILESIZE)
+HISTSIZE=3500
+HISTFILESIZE=3500
+# Constantly update the history file
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# ignore duplicate lines
+HISTCONTROL=ignoreboth

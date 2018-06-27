@@ -1,0 +1,25 @@
+# Display this file if help is needed
+alias helpsh="less ~/.bashrc.d/*"
+
+# Display Vimrc
+alias helpvim="less ~/.vimrc"
+
+# Reload bashrc
+alias reloadsh=". ~/.bashrc"
+alias reloadxr="xrdb ~/.Xresources"
+alias tmux="tmux -f ~/.tmux.conf" 
+
+# Sort directories by size
+alias lss="ls -sSh"
+# List all
+alias lsa="ls -A"
+# List long format
+alias lsl="ls -l"
+# List newest first 
+alias lsn="ls -lt"
+
+# Show recently used commands
+alias prev="history 10" 
+
+# Repeat the last operation as sudo
+alias pls="sudo !!"

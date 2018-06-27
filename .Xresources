@@ -1,0 +1,55 @@
+
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.perl-ext-common: default,clipboard
+
+! Fonts
+
+emacs.font:     Monospace 12
+
+urxvt.font:     xft:Hack:size=11:antialias=true
+urxvt.Font:     xft:Hack:Bold:size=11:antialias=true
+
+! Scrollbar
+*scrollBar:  false
+*mouseWheelScrollPage: false
+
+! Transparency
+*transparent:   true
+*shading:       35
+
+! Background/Foreground
+*background: #121415
+*foreground: #e4dcea
+
+!BLK
+*color8:     #121415
+*color0:     #353839
+
+!RED
+*color9:     #b22929 
+*color1:     #f1d8d8
+
+!GRN
+URxvt.color10:    #08b21c
+URxvt.color2:   #d2f1d5 
+
+!BLU
+URxvt.color12:    #0067a5
+URxvt.color4:   #f2f7fa
+
+!YEL
+URxvt.color3:    #f6e7d4
+URxvt.color11:     #d17d17
+
+!CYN
+URxvt.color14:    #0e7c61
+URxvt.color6:     #d3e7e2
+
+!MAG
+URxvt.color5:    #eed0e5
+URxvt.color13:     #a50071
+
+!WHT
+URxvt.color15:     #CFCFCF
+URxvt.color7:    #FFFFFF
